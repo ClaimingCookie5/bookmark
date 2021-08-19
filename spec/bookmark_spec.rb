@@ -13,4 +13,12 @@ describe Bookmark do
     
   end
 
+  describe '.create' do
+    it 'stores a new bookmark to the database' do
+      url = 'https://www.facebook.com/'
+      Bookmark.create(url)
+      expect(Bookmark.all).to include(url)
+    end
+  end
+
 end
