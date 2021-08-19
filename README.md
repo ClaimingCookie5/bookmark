@@ -71,6 +71,35 @@ UPDATE <table_name>
 SET url = <'link url in speechmarks'> 
 WHERE id = <id_number>;
 ```
+### Testing using a 'Test Database'
+Create a new ruby file, and define this method within.
+```
+def setup_test_database
+  
+  p "Setting up test database..."
 
+  connection = PG.connect(dbname: 'bookmark_manager_test')
 
-
+  # Clear the boomarks table
+  connection.exec("TRUNCATE bookmarks;")
+end
+```
+Require your new your file at the top like ```require "< name_of_ruby_file >"```
+and write the following into the top of your spec file ```ENV['DB_ENV'] = 'test'``` along with
+```
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+    populate_table
+  end
+end
+```
+Next you'll need to change the way your Ruby class works based on whether it's testing or not.
+To do this, change the Bookmark.all method to include the __strong__environment variable__strong__.
+```
+if ENV['DB_ENV'] == 'test'
+  connection = PG.connect(dbname: 'bookmark_manager_test')
+else
+  connection = PG.connect(dbname: 'bookmark_manager')
+end
+```
