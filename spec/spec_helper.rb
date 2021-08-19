@@ -1,8 +1,17 @@
-ENV['RACK_ENV'] = 'test' #don't know what this does lol
+ENV['RACK_ENV'] = 'test'
+ENV['DB_ENV'] = 'test'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+    populate_table
+  end
+end
 
 require "capybara"
 require "capybara/rspec"
 require "rspec"
+require "setup_test_database"
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 
 Capybara.app = Manager
