@@ -1,2 +1,2 @@
 require './app.rb'
-run Bookmark
+run Manager
