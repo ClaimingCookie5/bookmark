@@ -12,5 +12,9 @@ class Manager < Sinatra::Base
     erb(:'bookmarks/index')
   end 
 
+  get '/submit_bookmark' do
+    erb(:'bookmarks/submit_bookmark')
+  end
+
   run! if app_file == $0
 end
