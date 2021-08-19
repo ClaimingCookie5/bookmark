@@ -95,7 +95,7 @@ RSpec.configure do |config|
 end
 ```
 Next you'll need to change the way your Ruby class works based on whether it's testing or not.
-To do this, change the Bookmark.all method to include the __strong__environment variable__strong__.
+To do this, change the Bookmark.all method to include the __environment variable__.
 ```
 if ENV['DB_ENV'] == 'test'
   connection = PG.connect(dbname: 'bookmark_manager_test')
