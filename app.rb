@@ -14,6 +14,12 @@ class Manager < Sinatra::Base
 
   get '/submit_bookmark' do
     erb(:'bookmarks/submit_bookmark')
+
+  end
+
+  post '/add_bookmark' do
+    Bookmark.create(params[:url])
+    redirect '/bookmarks'
   end
 
   run! if app_file == $0
