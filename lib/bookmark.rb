@@ -3,7 +3,7 @@ require 'pg'
 class Bookmark
   attr_reader :id, :url, :title
 
-  def initialize(id, url, title)
+  def initialize(id:, url:, title:)
     @id = id
     @url = url
     @title = title
@@ -24,11 +24,17 @@ class Bookmark
   def self.all
     connection = check_environment
     results = connection.exec('SELECT * FROM bookmarks')
-    results.map { |result| Bookmark.new(result['id'], result['url'], result['title']) }
+    results.map { |result| Bookmark.new(id: result['id'], title: result['title'], url: result['url'])}
   end
   
-  def self.create(url, title)
+  def self.create(url:, title:)
     connection = check_environment
     connection.exec_params("INSERT INTO bookmarks (url, title) VALUES ($1, $2)", [url, title])
   end
+
+  def self.delete(id:)
+    connection = check_environment
+    connection.exec_params("DELETE FROM bookmarks WHERE id = $1;", [id])
+  end
+
 end
