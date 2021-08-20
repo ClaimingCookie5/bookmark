@@ -6,9 +6,9 @@ describe Bookmark do
 
     it 'returns all bookmarks' do
       bookmarks = Bookmark.all
-      expect(bookmarks).to include('https://www.mozilla.org/en-GB/')
-      expect(bookmarks).to include('https://miniclip.com')
-      expect(bookmarks).to include('https://www.codewars.com/')
+      expect(bookmarks[1].url).to eq('https://www.mozilla.org/en-GB/')
+      expect(bookmarks[2].url).to eq('https://miniclip.com')
+      expect(bookmarks[3].url).to eq('https://www.codewars.com/')
     end
     
   end
@@ -16,8 +16,9 @@ describe Bookmark do
   describe '.create' do
     it 'stores a new bookmark to the database' do
       url = 'https://www.facebook.com/'
-      Bookmark.create(url)
-      expect(Bookmark.all).to include(url)
+      title = 'Facebook'
+      Bookmark.create(url, title)
+      expect(Bookmark.all.last.url).to eq url
     end
   end
 
