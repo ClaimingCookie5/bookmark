@@ -1,6 +1,14 @@
 <ul>
 <% @bookmark.each do |result| %>
-  <li><a href='<%= result.url %>' target='_blank'><%= result.title %></a></li>
+  <li>
+    <a href='<%= result.url %>' target='_blank'>
+      <%= result.title %>
+      <form action='/delete' method='POST'>
+      <input type='hidden' name='id' value=<%= result.id%>>
+      <input type='submit' value='Delete'>
+      </form>
+    </a>
+    </li>
   <% end %>
 </ul>
 <form action='/submit_bookmark' method='get'>

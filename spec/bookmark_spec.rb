@@ -24,12 +24,8 @@ describe Bookmark do
 
   describe '.delete' do
     it 'deletes a bookmark entry' do
-      p "first: #{Bookmark.all}"
-      bookmark = Bookmark.new(id: 0, url: 'http://www.makersacademy.com', title: 'Makers')
-      p "hivwhdsuoijvs: #{bookmark}"
-      p "hivwhdsuoijvs: #{bookmark.id}"
-      p "first: #{Bookmark.all.length}"
-      expect{ Bookmark.delete(id: 0) }.to change{ Bookmark.all.length }.by (-1)
+      bookmark = Bookmark.create(url: 'http://www.makersacademy.com', title: 'Makers')
+      expect{ Bookmark.delete(id: bookmark.id) }.to change{ Bookmark.all.length }.by (-1)
     end
   end
 
