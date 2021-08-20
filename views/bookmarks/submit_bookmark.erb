@@ -1,4 +1,7 @@
 <form action='/add_bookmark' method='post'>
-  <input type='text' id='URL' name='url'>
+  <label for='url'>URL address:</label>
+  <input type='text' name='url' required>
+  <label for='title'>Name of the link:</label>
+  <input type='text' name='title' required>
   <input type='submit' value='Submit'>
 </form>

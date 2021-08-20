@@ -1,6 +1,13 @@
 require 'pg'
 
 class Bookmark
+  attr_reader :id, :url, :title
+
+  def initialize(id, url, title)
+    @id = id
+    @url = url
+    @title = title
+  end
 
   def self.check_environment
     if ENV['DB_ENV'] == 'test'
@@ -17,12 +24,12 @@ class Bookmark
   def self.all
     connection = check_environment
     results = connection.exec('SELECT * FROM bookmarks')
-    results.map { |result| result['url'] }
+    results.map { |result| Bookmark.new(result['id'], result['url'], result['title']) }
   end
   
-  def self.create(url)
+  def self.create(url, title)
     connection = check_environment
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('#{url}')")
+    connection.exec("INSERT INTO bookmarks (url, title) VALUES ('#{url}', '#{title}')")
   end
 
 end
